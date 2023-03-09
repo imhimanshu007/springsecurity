@@ -1,7 +1,11 @@
 package com.learning.eazybankbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -23,9 +27,18 @@ public class Customer {
             allocationSize = 1
     )
 
-
+    @Column(name = "customer_id")
     private Long id;
+    private String  name;
     private String email;
+
+    @Column(name = "mobile_number")
+    private String mobileNumber;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String pwd;
     private String role;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 }

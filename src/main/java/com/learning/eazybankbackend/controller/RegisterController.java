@@ -4,10 +4,14 @@ import com.learning.eazybankbackend.model.Customer;
 import com.learning.eazybankbackend.repository.CustomerRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 public class RegisterController {
@@ -32,5 +36,11 @@ public class RegisterController {
                 .body("Given user details are successfully registered");
 
         return responseEntity;
+    }
+
+    @RequestMapping("/user")
+    public Customer getUserDetailsAfterLogin(Authentication authentication){
+        Optional<Customer> customer = customerRepository.findByEmail(authentication.getName());
+        return customer.orElse(null);
     }
 }
