@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -33,6 +34,7 @@ public class Accounts {
     @Column(name = "branch_address")
     private String branchAddress;
 
+    @CreationTimestamp
     @Column(name = "created_date")
     private String createdDate;
 }
