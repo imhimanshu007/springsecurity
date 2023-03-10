@@ -38,6 +38,7 @@ public class AccountsTransactions {
     @Column(name = "customer_id")
     private Long customerId;
 
+    @CreationTimestamp
     @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
 
@@ -52,7 +53,6 @@ public class AccountsTransactions {
 
     @Column(name = "closing_balance")
     private BigDecimal closingBalance;
-
 
     @CreationTimestamp
     @Column(name = "created_date")

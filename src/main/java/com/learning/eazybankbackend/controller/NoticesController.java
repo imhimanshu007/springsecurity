@@ -4,6 +4,7 @@ import com.learning.eazybankbackend.model.Notice;
 import com.learning.eazybankbackend.repository.NoticeRepository;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

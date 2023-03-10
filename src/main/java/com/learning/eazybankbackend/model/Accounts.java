@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,5 +38,5 @@ public class Accounts {
 
     @CreationTimestamp
     @Column(name = "created_date")
-    private String createdDate;
+    private LocalDateTime createdDate;
 }

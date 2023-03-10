@@ -12,12 +12,9 @@ import java.util.Random;
 @RestController
 public class ContactController {
 
-    private final ContactController contactController;
     private final ContactRepository contactRepository;
 
-    public ContactController(ContactController contactController,
-                             ContactRepository contactRepository) {
-        this.contactController = contactController;
+    public ContactController(ContactRepository contactRepository) {
         this.contactRepository = contactRepository;
     }
 
