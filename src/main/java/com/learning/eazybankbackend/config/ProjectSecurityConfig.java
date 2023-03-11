@@ -1,6 +1,9 @@
 package com.learning.eazybankbackend.config;
 
+import com.learning.eazybankbackend.filter.AuthoritiesLoggingAfterFilter;
+import com.learning.eazybankbackend.filter.AuthoritiesLoggingAtFilter;
 import com.learning.eazybankbackend.filter.CsrfCookieFilter;
+import com.learning.eazybankbackend.filter.RequestValidationBeforeFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,7 +48,10 @@ public class ProjectSecurityConfig {
                                 .ignoringRequestMatchers("/contact","/register")
                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
+                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers("/myAccount")
                 //.hasAuthority("VIEWACCOUNT")
