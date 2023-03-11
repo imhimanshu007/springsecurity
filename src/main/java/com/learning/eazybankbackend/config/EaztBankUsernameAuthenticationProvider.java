@@ -1,5 +1,6 @@
 package com.learning.eazybankbackend.config;
 
+import com.learning.eazybankbackend.model.Authority;
 import com.learning.eazybankbackend.model.Customer;
 import com.learning.eazybankbackend.repository.CustomerRepository;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -37,9 +38,8 @@ public class EaztBankUsernameAuthenticationProvider implements AuthenticationPro
 
         if(customerOptional.isPresent()){
             if(passwordEncoder.matches(pwd,customerOptional.get().getPwd())){
-                Set<GrantedAuthority> authorities = new HashSet<>();
-                authorities.add(new SimpleGrantedAuthority(customerOptional.get().getRole()));
-                return new UsernamePasswordAuthenticationToken(username, pwd,authorities);
+                return new UsernamePasswordAuthenticationToken(username, pwd,getGrantedAuthority(customerOptional.get()
+                        .getAuthoritySet()));
             }
             else{
                 throw new BadCredentialsException("Invalid Password");
@@ -48,6 +48,12 @@ public class EaztBankUsernameAuthenticationProvider implements AuthenticationPro
         else{
             throw new BadCredentialsException("No User Registered with this details");
         }
+    }
+
+    private Set<GrantedAuthority> getGrantedAuthority(Set<Authority> authorities){
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        authorities.forEach(authority -> grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName())));
+        return grantedAuthorities;
     }
 
     @Override
